@@ -1,7 +1,11 @@
 import express from 'express'
+import morgan from 'morgan'
+import routes from './http/routes'
 
 export const app = express()
 
-app.get('/', (_, reply) => {
-	reply.send('Hello World')
-})
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+app.use(morgan('dev'))
+
+app.use(routes)
