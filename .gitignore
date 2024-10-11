@@ -9,3 +9,6 @@ coverage
 
 # Storage
 tmp
+
+# Database
+data
