@@ -1,8 +1,9 @@
 import { RequestHandler } from 'express'
 import { Post } from '@/db/models/Post'
+import { UploadedFile } from '@/@types/uploaded-file'
 
 export const posts: RequestHandler = async (request, response, next) => {
-	const { file } = request
+	const file: UploadedFile | undefined = request.file
 
 	if (!file) {
 		response.status(400).send({
@@ -15,8 +16,8 @@ export const posts: RequestHandler = async (request, response, next) => {
 	const post = await Post.create({
 		name: file.originalname,
 		size: file.size,
-		key: file.filename,
-		url: '',
+		key: file.key,
+		url: file.location,
 	})
 
 	response.status(201).json({
